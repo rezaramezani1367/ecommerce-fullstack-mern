@@ -1,0 +1,122 @@
+user:
+
+      signup|POST| req: axios.post(
+        "http://localhost:4000/user/add",
+        {
+          username: "username",
+          email: "email",
+          password: "password",
+          mobile: "phone number",
+        }
+      )
+----------------------------------------------------
+      login|POST| req: axios.post(
+        "http://localhost:4000/user/login",
+        {
+          email: "email",
+          password: "password",
+        }
+      )
+---------------------------------------------------
+      GetProfile|get| req: axios.get(
+        "http://localhost:4000/user/profile",
+        {
+          headers: {
+            authorization:
+              "Bearer token",
+          },
+        }
+      )
+---------------------------------------------------
+      ChangePassword|PUT| req: axios.put(
+        "http://localhost:4000/user/changePassword",
+        {
+          old_password: "old password",
+          new_password: "new password",
+        },
+        {
+          headers: {
+            authorization:
+              "Bearer token",
+          },
+        }
+      )
+---------------------------------------------------
+      changeProfile|PUT| req: axios.post(
+        "http://localhost:4000/user/profile/change",
+        {
+          firstname: "firstname",
+          lastname: "lastname",
+          gender: "male",
+          age: 26,
+          city: "tehran",
+        },
+        {
+          headers: {
+            authorization:
+              "Bearer token",
+          },
+        }
+      )
+--------------------------------------------------
+      UploadProfileImage|POST|req: axios.put(
+        "http://localhost:4000/user/changeProfileImage",
+        formData,
+        {
+          headers: {
+            authorization:
+              "Bearer token",
+          },
+        }
+      )
+
+////////////////////////////////////////
+
+product:
+
+	GetAllProduct|get|req: axios.get("http://localhost:4000/product/") 
+----------------------------------------------------------------------------------------
+	GetOneProduct|get|req: axios.get("http://localhost:4000/product/:Id")
+
+/////////////////////////////////////////    
+  
+order:
+
+      Submit|POST|req: axios.post(
+        "http://localhost:4000/order/submit",
+        {
+          orderItems: [
+            { product: "productId", qty: 2 },
+            { product: "productId", qty: 2 },
+          ],
+          shippingAddress: {
+            address: "iran tehran valiasr st.",
+            city: "tehran",
+            postalCode: "64652465",
+            phone: "09120000000",
+          },
+          paymentMethod: "cash",
+          shippingPrice: "5",
+          totalPrice: 3,
+        },
+        {
+          headers: {
+            authorization:
+              "Bearer token",
+          },
+        }
+      )
+----------------------------------------------------------------------------------
+      GetAllOrder|get|req: axios.get("http://localhost:4000/order/", {
+        headers: {
+          authorization:
+            "Bearer token",
+        },
+      })
+-----------------------------------------------------------------------------------
+      GetOneOrder|get|req: axios.get("http://localhost:4000/order/:orderId", {
+        headers: {
+          authorization:
+            "Bearer token",
+        },
+      })
