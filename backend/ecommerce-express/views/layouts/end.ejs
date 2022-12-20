@@ -1,0 +1,30 @@
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+charset="utf-8"
+></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="/js/mainScript.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<% if (message.length) { %>
+    <script>
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'info',
+  title: '<%= message %>'
+})
+   </script>
+   <% } %>
+
+</body>
+</html>

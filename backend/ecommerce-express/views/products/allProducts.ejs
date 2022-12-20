@@ -1,0 +1,149 @@
+<%- include('../layouts/head.ejs')%>
+
+<body>
+  <div>
+    <%- include('../layouts/sidebar.ejs')%>
+    <div class="relative md:ml-64">
+      <%- include('../layouts/navTop.ejs')%>
+      <div class="relative md:pt-24 pt-12">
+        <div class="w-full px-4">
+          <!-- lg:w-8/12 bg-pink-600 -->
+          <div class="mx-auto w-full">
+            <div class="flex flex-wrap mt-4">
+              <div class="w-full mb-12">
+                <div
+                  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white border"
+                >
+                  <div class="rounded-t mb-0 px-4 py-3 border-0">
+                    <div class="flex flex-wrap items-center">
+                      <div
+                        class="relative w-full px-4 max-w-full flex-grow flex-1"
+                      >
+                        <h3 class="font-semibold text-lg text-blueGray-700">
+                          <%= pageTitle %>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="block w-full overflow-x-auto">
+                    <!-- Projects table -->
+                    <table
+                      class="items-center w-full bg-transparent border-collapse"
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          >
+                            Name
+                          </th>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          >
+                            category
+                          </th>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          >
+                            brand
+                          </th>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          >
+                            color
+                          </th>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          >
+                            price
+                          </th>
+                          <th
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          ></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(let p of product) {%>
+                        <tr
+                          class="hover:bg-slate-50 transition-all duration-100"
+                        >
+                          <th
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
+                          >
+                          <img
+                          src=" <%= p.image%>"
+                          class="h-12 w-12 bg-white rounded-full border"
+                          alt="..."
+                        />
+                        <span class="ml-3 font-bold text-blueGray-600">
+                          <%= p.name%>
+                        </span>
+                           
+                          </th>
+                          <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                          >
+                            <%= p.category%>
+                          </td>
+                          <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                          >
+                            <%= p.brand%>
+                          </td>
+                          <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                          >
+                            <div class="flex">
+                              <!-- <i class="fas fa-circle text-<%= p.brand%> mr-2"></i> -->
+                              <%= p.color%>
+                            </div>
+                          </td>
+                          <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                          >
+                            <%= p.price%>$
+                          </td>
+                          <td
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+                          >
+                            <a
+                              class="text-blueGray-500 block py-1 px-3"
+                              onclick="openDropdown(event,'table-light-<%= p._id %>-dropdown')"
+                            >
+                              <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div
+                              class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+                              id="table-light-<%= p._id %>-dropdown"
+                            >
+                              <form
+                                action="/api/v1/Products/<%= p._id %>?_method=DELETE"
+                                method="post"
+                              >
+                                <input type="text" hidden />
+                                <button
+                                  type="submit"
+                                  class="text-sm py-2 px-4 font-normal flex gap-6 items-center w-full whitespace-nowrap bg-transparent text-blueGray-700 cursor-pointer"
+                                >
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                  Delete
+                                </button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../layouts/end.ejs')%>
+
