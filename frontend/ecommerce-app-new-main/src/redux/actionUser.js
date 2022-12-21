@@ -264,8 +264,8 @@ export const UploadProfileImage = (values) => async (dispatch, getState) => {
   const base64Response = await fetch(`${values.newImage}`);
   const blob = await base64Response.blob();
   const formData = new FormData();
-  formData.append("image", blob, "filename.jpg");
 
+  formData.append("image", blob, `${values.username}.jpg`);
   dispatch({
     type: userLoading,
     payload: {
@@ -278,7 +278,7 @@ export const UploadProfileImage = (values) => async (dispatch, getState) => {
     },
   });
   try {
-    const data = await client.put("/user/changeProfileImage", formData, {
+    const { data } = await client.put("/user/changeProfileImage", formData, {
       headers: {
         authorization: `Bearer ${values.token}`,
       },
@@ -287,13 +287,15 @@ export const UploadProfileImage = (values) => async (dispatch, getState) => {
       type: userSuccess,
       payload: {
         userData: {
-          ...getState().user.userData,
+          ...data,
           IsSuccessUploadProfileImage: true,
         },
         userLoading: false,
         userError: "",
       },
     });
+
+    localStorage.setItem("user", JSON.stringify(data));
     Toast.fire({
       icon: "success",
       title: `profile image changed successfully`,

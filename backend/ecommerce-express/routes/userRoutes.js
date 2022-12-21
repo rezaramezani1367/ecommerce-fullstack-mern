@@ -21,11 +21,10 @@ router.route("/changeProfileImage").put(
   authenticate,
   uploadImage.single("image"),
   (req, res, next) => {
-    console.log(req.file);
     if (!req.file) {
       req.body.image = null;
     } else {
-      console.log(req.file);
+      // console.log(req.file);
       // req.body.image = req.file.filename;
       req.body.image = req.file.path.replace(/\\/g, "/").substring(6);
     }

@@ -9,10 +9,14 @@ const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const auth = require("./middleware/auth");
+const fs = require("fs");
 
 connectDB();
 
 const app = express();
+// __basedir
+global.__basedir = __dirname;
+
 app.use(express.urlencoded({ extended: true }));
 // static file
 app.use(express.static(path.join(__dirname, "public")));

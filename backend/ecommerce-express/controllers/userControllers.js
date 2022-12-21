@@ -2,7 +2,8 @@ const User = require("../models/user");
 const asyncHandler = require("../middleware/asyncHandler");
 const Profile = require("../models/Profile");
 const bcrypt = require("bcryptjs");
-
+const fs = require("fs");
+const path = require("path");
 exports.getCurrentUser = asyncHandler(async (req, res, next) => {
   res.send(req.user);
 });
@@ -26,10 +27,19 @@ exports.logoutUser = asyncHandler(async (req, res, next) => {
   res.send({ success: "ok", data: "logout successful" });
 });
 exports.changeProfileImage = asyncHandler(async (req, res, next) => {
-  console.log(req.body.image);
+  const defaultImage = "/profile-image/images.png";
+  if (req.user.image !== defaultImage) {
+    fs.unlink(path.join(__basedir, "/public", req.user.image), (err) => {
+      if (err) {
+        new Error(err);
+      }
+    });
+  }
   if (!req.body.image) {
     throw new Error("image field is empty!");
   }
+
+  // if()
   await User.findByIdAndUpdate(req.user._id, { image: req.body.image });
   res.send(await User.findOne({ _id: req.user._id }).populate("profile"));
 });

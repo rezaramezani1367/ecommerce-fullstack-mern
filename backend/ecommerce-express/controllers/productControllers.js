@@ -74,7 +74,7 @@ exports.deleteProductById = asyncHandler(async (req, res, next) => {
     );
   }
 
-  fs.unlink(path.join(__dirname, "../public", product.image), (err) => {
+  fs.unlink(path.join(__basedir, "/public", product.image), (err) => {
     if (err) {
       new ErrorResponse(err, 404);
     }

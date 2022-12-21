@@ -52,7 +52,6 @@ const ChangeProfile = () => {
     validate,
   });
   useEffect(() => {
-    console.log("first");
     if (status && userData.IsSuccessChangeProfile) {
       navigate("/profile");
       console.log("second");
