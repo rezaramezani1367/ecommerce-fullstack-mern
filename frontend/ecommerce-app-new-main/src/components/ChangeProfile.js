@@ -54,7 +54,7 @@ const ChangeProfile = () => {
   useEffect(() => {
     if (status && userData.IsSuccessChangeProfile) {
       navigate("/profile");
-      console.log("second");
+
     }
   }, [userData, status]);
 

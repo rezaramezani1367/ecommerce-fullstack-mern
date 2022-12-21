@@ -21,6 +21,7 @@ router.route("/changeProfileImage").put(
   authenticate,
   uploadImage.single("image"),
   (req, res, next) => {
+
     if (!req.file) {
       req.body.image = null;
     } else {

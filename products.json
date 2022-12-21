@@ -1,0 +1,169 @@
+[{
+  "_id": {
+    "$oid": "6373bd048b27af4124061dc5"
+  },
+  "color": "black",
+  "countInStock": 6,
+  "numReviews": 11,
+  "name": "Glorious Gaming Mouse",
+  "description": "Glorious Model D Honeycomb Mouse - Superlight RGB PC Mouse - 68 g - Matte Black Wired Mouse ",
+  "category": "Mouse",
+  "price": 54.67,
+  "rating": 4.7,
+  "brand": "Logitech",
+  "image": "/products/images/71I9Nvt2H6L._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636c042c19fe6e277f57fa2e"
+  },
+  "color": "white",
+  "countInStock": 6,
+  "numReviews": 11,
+  "name": "Glorious Gaming Mouse1",
+  "description": "Glorious Model D Honeycomb Mouse - Superlight RGB PC Mouse - 68 g - Matte Black Wired Mouse ",
+  "category": "Mouse",
+  "price": 54.67,
+  "rating": 4.7,
+  "brand": "Logitech",
+  "image": "/products/images/717Hz1ukCEL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636c005c19fe6e277f57f9f7"
+  },
+  "color": "black",
+  "countInStock": 16,
+  "numReviews": 23,
+  "name": "Logitech G502 Lightspeed ",
+  "description": "Wireless Gaming Mouse with Hero 25K Sensor, PowerPlay Compatible, Tunable Weights and Lightsync RGB - Black ",
+  "category": "Mouse",
+  "price": 120,
+  "rating": 4.7,
+  "brand": "Logitech",
+  "image": "/products/images/718b9wK3eaL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bffc219fe6e277f57f9f1"
+  },
+  "color": "black",
+  "countInStock": 8,
+  "numReviews": 19,
+  "name": "CORSAIR M65 Pro RGB ",
+  "description": "12,000 DPI Optical Sensor - Adjustable DPI Sniper Button - Tunable Weights -  Black (CH-9300011-NA) ",
+  "category": "Mouse",
+  "price": 29,
+  "rating": 4.4,
+  "brand": "CORSAIR",
+  "image": "/products/images/61xcm30tXrL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfd4f19fe6e277f57f9cd"
+  },
+  "color": "black",
+  "countInStock": 8,
+  "numReviews": 19,
+  "name": "Razer Mamba Elite Wired Gaming Mouse",
+  "description": "16,000 DPI Optical Sensor - Chroma RGB Lighting - 9 Programmable Buttons - Mechanical Switches ",
+  "category": "Mouse",
+  "price": 48,
+  "rating": 4.6,
+  "brand": "Razer",
+  "image": "/products/images/61VwBIfNvJL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfca019fe6e277f57f9c9"
+  },
+  "color": "black",
+  "countInStock": 4,
+  "numReviews": 38,
+  "name": "Logitech G703 Lightspeed ",
+  "description": "Wireless Gaming Mouse W/Hero 25K Sensor, PowerPlay Compatible, Lightsync RGB, Lightweight 95G+10G Optional, 100-25, 600 DPI, Rubber Side Grips - Black ",
+  "category": "Mouse",
+  "price": 74.44,
+  "rating": 4.6,
+  "brand": "Logitech",
+  "image": "/products/images/61-jAartdjL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfc1719fe6e277f57f9c3"
+  },
+  "color": "black",
+  "countInStock": 19,
+  "numReviews": 21,
+  "name": "Corsair Harpoon RGB Wireless",
+  "description": "Wireless Rechargeable Gaming Mouse with SLIPSTREAM Technology - 10,000 DPI Optical Sensor ",
+  "category": "Mouse",
+  "price": 38,
+  "rating": 4.5,
+  "brand": "Corsair",
+  "image": "/products/images/51w35U77ZXL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfbb619fe6e277f57f9bd"
+  },
+  "color": "black",
+  "countInStock": 13,
+  "numReviews": 32,
+  "name": "Logitech G604 LIGHTSPEED",
+  "description": "Wireless Gaming Mouse with 15 programmable controls, up to 240 hour battery life, dual wireless connectivity modes, hyper-fast scroll wheel - Black",
+  "category": "Mouse",
+  "price": 50,
+  "rating": 4.5,
+  "brand": "Logitech",
+  "image": "/products/images/517H1HBj0kL._AC_SL1000_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfb5e19fe6e277f57f9b8"
+  },
+  "color": "black",
+  "countInStock": 10,
+  "numReviews": 59,
+  "name": "Corsair Scimitar Pro RGB",
+  "description": "MMO Gaming Mouse - 16,000 DPI Optical Sensor - 12 Programmable Side Buttons - Black ",
+  "category": "Mouse",
+  "price": 54,
+  "rating": 4.5,
+  "brand": "Corsair",
+  "image": "/products/images/61S4llvgPZL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bfb4819fe6e277f57f9b4"
+  },
+  "color": "white",
+  "countInStock": 10,
+  "numReviews": 59,
+  "name": "Corsair Scimitar Pro RGB1",
+  "description": "MMO Gaming Mouse - 16,000 DPI Optical Sensor - 12 Programmable Side Buttons - White",
+  "category": "Mouse",
+  "price": 54,
+  "rating": 4.5,
+  "brand": "Corsair",
+  "image": "/products/images/61S4llvgPZL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "636bf95419fe6e277f57f982"
+  },
+  "color": "black",
+  "countInStock": 0,
+  "numReviews": 29,
+  "name": "Razer Viper Mini Ultralight Gaming Mouse",
+  "description": "Fastest Gaming Switches - 8500 DPI Optical Sensor - Chroma RGB Underglow Lighting - 6 Programmable Buttons - Drag-Free Cord - Classic Black ",
+  "category": "Mouse",
+  "price": 20,
+  "rating": 4.7,
+  "brand": "Razer",
+  "image": "/products/images/516NCsvHpmL._AC_SL1500_.jpg"
+},{
+  "_id": {
+    "$oid": "63a31870527b300decdc2a29"
+  },
+  "color": "black",
+  "countInStock": 1,
+  "numReviews": 14,
+  "description": "Fastest Gaming Switches - 8500 DPI Optical Sensor - Chroma RGB Underglow Lighting - 6 Programmable Buttons - Drag-Free Cord - Classic Black",
+  "category": "Mouse",
+  "price": 250,
+  "rating": 3.5,
+  "brand": "Razer",
+  "name": "Trust Izza Wired Gaming Mouse",
+  "image": "/products/images/1671633008115-446979664-dc7de630-672f-4caa-b291-b128390e2ec5_1651261454.jpg"
+}]

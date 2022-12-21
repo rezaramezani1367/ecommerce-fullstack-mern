@@ -34,6 +34,7 @@ exports.createNewProductForm = asyncHandler(async (req, res, next) => {
   });
 });
 exports.createNewProduct = asyncHandler(async (req, res, next) => {
+  // console.log(req.body);
   const product = await Product.create(req.body);
   req.flash("success1", "product created successfully");
   res.status(201).json({
