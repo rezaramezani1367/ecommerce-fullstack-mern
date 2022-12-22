@@ -44,7 +44,7 @@ export const submitOrder = (values) => async (dispatch, getState) => {
     localStorage.removeItem("cart");
   } catch (error) {
     const errorMessage = error.response
-      ? error.response.data.message
+      ? error.response.data.error
       : error.message;
     dispatch({
       type: orderError,
@@ -88,7 +88,7 @@ export const getOrders =
       });
     } catch (error) {
       const errorMessage = error.response
-        ? error.response.data.message
+        ? error.response.data.error
         : error.message;
       dispatch({
         type: orderError,
@@ -132,7 +132,7 @@ export const getOrderDetails =
       });
     } catch (error) {
       const errorMessage = error.response
-        ? error.response.data.message
+        ? error.response.data.error
         : error.message;
       dispatch({
         type: orderError,

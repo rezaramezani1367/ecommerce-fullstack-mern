@@ -20,6 +20,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, minusFromCart, removeItmeCart } from "../redux/actionCart";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../redux/constants";
 
 const Cart = () => {
   const mediumViewport = useMediaQuery("(min-width:900px)");
@@ -108,7 +109,7 @@ const Cart = () => {
                         onClick={() => navigate(`/product/${item._id}`)}
                       >
                         <img
-                          src={item.image}
+                          src={baseUrl + item.image}
                           alt="11"
                           className="max-h-full"
                           onError={({ currentTarget }) => {

@@ -142,7 +142,7 @@ const Login = () => {
                       ? formik.errors.email
                       : ""
                   }
-                  label="Email"
+                  label="Email or Username"
                   name="email"
                   id="email"
                   autoComplete="username"

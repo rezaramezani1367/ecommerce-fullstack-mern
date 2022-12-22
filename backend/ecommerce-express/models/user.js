@@ -80,7 +80,9 @@ const UserSchema = new mongoose.Schema(
 );
 
 UserSchema.statics.checkValidCredentials = async (email, password) => {
-  const user = await User.findOne({ email }).populate("profile");
+  const user = await User.findOne()
+    .or([{ email }, { username: email }])
+    .populate("profile");
 
   if (!user) {
     throw new Error("email or password worng");

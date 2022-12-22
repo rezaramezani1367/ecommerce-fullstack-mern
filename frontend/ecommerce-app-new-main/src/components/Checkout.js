@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../redux/actionCart";
 import { Navigate, useNavigate } from "react-router-dom";
 import { submitOrder } from "../redux/actionOrder";
+import { baseUrl } from "../redux/constants";
 
 const Checkout = () => {
   const [status, setStatus] = useState(false);
@@ -157,7 +158,7 @@ const Checkout = () => {
                           onClick={() => navigate(`/product/${item._id}`)}
                         >
                           <img
-                            src={item.image}
+                            src={baseUrl + item.image}
                             alt="11"
                             className="max-h-full max-w-full"
                             onError={({ currentTarget }) => {
