@@ -15,6 +15,7 @@ import Checkout from "./components/Checkout";
 import Order from "./components/Order";
 import Orders from "./components/Orders";
 import NotFound from "./components/NotFound";
+import FilterProduct from "./components/FilterProduct";
 
 const RouterSection = () => {
   return (
@@ -34,6 +35,7 @@ const RouterSection = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order/:id" element={<Order />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/filter" element={<FilterProduct />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

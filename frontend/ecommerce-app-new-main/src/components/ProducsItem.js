@@ -21,7 +21,7 @@ const ProducsItem = ({ item }) => {
   return (
     <>
       <Card
-        sx={{ border: 1, borderColor: "divider" }}
+        sx={{ border: 1, borderColor: "divider",borderRadius:0,boxShadow:0 }}
         onClick={() => navigate(`/product/${item._id}`)}
         elevation={3}
       >

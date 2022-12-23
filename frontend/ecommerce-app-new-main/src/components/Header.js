@@ -27,6 +27,7 @@ import {
   Logout,
   Grading,
   Settings,
+  FilterList,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile, logoutUser } from "../redux/actionUser";
@@ -188,21 +189,39 @@ export default function Header({ setMode, mode }) {
     <AppBar position="sticky">
       <Container>
         <Toolbar>
-          <NavLink to="/">
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <Home />
-            </IconButton>
-          </NavLink>
-          <NavLink to="/">
-            <Typography variant="h6" noWrap component="span">
-              Home
-            </Typography>
-          </NavLink>
+          <Box alignItems="center" display="flex" gap={3}>
+            <Box display="flex" alignItems="center">
+              <NavLink to="/">
+                <Box alignItems="center" display="flex">
+                  <Home />
+                  <Typography
+                    variant="h6"
+                    marginLeft={0.5}
+                    textTransform="capitalize"
+                    noWrap
+                    component="span"
+                  >
+                    home
+                  </Typography>
+                </Box>
+              </NavLink>
+            </Box>
+
+            <NavLink to="/filter">
+              <Box alignItems="center" display="flex">
+                <FilterList />
+                <Typography
+                  variant="h6"
+                  marginLeft={0.5}
+                  textTransform="capitalize"
+                  noWrap
+                  component="span"
+                >
+                  filter products
+                </Typography>
+              </Box>
+            </NavLink>
+          </Box>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box className="flex gap-1">

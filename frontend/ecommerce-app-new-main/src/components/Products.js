@@ -32,7 +32,7 @@ const Products = () => {
               {newLoading ? (
                 <Loading />
               ) : (
-                <Grid container spacing={3}>
+                <Grid container spacing={1}>
                   {paginationData.map((item, index) => (
                     <Grid xs={12} md={6} lg={4} key={item._id}>
                       <ProducsItem item={item} />
