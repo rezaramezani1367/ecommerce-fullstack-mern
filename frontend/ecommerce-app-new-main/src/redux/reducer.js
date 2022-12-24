@@ -19,6 +19,9 @@ export const products = (
     productData: [],
     productError: "",
     paginationData: [],
+    category: [],
+    color: [],
+    brand: [],
   },
   { type, payload }
 ) => {

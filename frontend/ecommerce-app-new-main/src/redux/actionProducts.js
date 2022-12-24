@@ -12,7 +12,7 @@ export const getAllProducts = () => async (dispatch, getState) => {
   });
   try {
     const { data } = await client.get("/product/");
-    
+
     dispatch({
       type: productSuccess,
       payload: {
@@ -20,8 +20,12 @@ export const getAllProducts = () => async (dispatch, getState) => {
         productData: [...data.data],
         productError: "",
         paginationData: [],
+        category: [...data.categories],
+        color: [...data.colors],
+        brand: [...data.brands],
       },
     });
+
   } catch (error) {
     dispatch({
       type: productError,

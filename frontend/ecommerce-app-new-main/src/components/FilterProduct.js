@@ -11,7 +11,14 @@ import FilterSection from "./FilterSection";
 
 const FilterProduct = () => {
   const {
-    products: { productLoading, productData, productError, paginationData },
+    products: {
+      productLoading,
+      productData,
+      productError,
+      category,
+      color,
+      brand,
+    },
   } = useSelector((last) => last);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,14 +30,21 @@ const FilterProduct = () => {
         minWidth={270}
         width={300}
         border="1px solid"
-        minHeight="80vh"
+        Height={300}
         borderColor="divider"
-        alignSelf='flex-start'
-        position='sticky'
+        alignSelf="flex-start"
+        position="sticky"
+        style={{ height: "88vh", overflowY: "auto", overflowX: "hidden" }}
         top={70}
+
         // borderRadius={1}
       >
-        <FilterSection />
+        <FilterSection
+          productData={productData}
+          category={category}
+          color={color}
+          brand={brand}
+        />
       </Box>
       <Box width="100%">
         {productLoading ? (

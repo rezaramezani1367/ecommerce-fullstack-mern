@@ -5,10 +5,23 @@ const fs = require("fs");
 const path = require("path");
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const product = await Product.find({}, { numReviews: 0 });
-  res.status(200).json({
-    success: true,
-    data: product,
+  // all category color brand without repeat
+
+  const CategoriesRepeat = { category: [], color: [], brand: [] };
+  product.forEach((item) => {
+    CategoriesRepeat.category.push(item.category);
+    CategoriesRepeat.color.push(item.color);
+    CategoriesRepeat.brand.push(item.brand);
   });
+
+  // min and max price
+
+  res.status(200).send(
+    {data: product,
+    categories: [...new Set(CategoriesRepeat.category)],
+    colors: [...new Set(CategoriesRepeat.color)],
+    brands: [...new Set(CategoriesRepeat.brand)],}
+ );
 
   /*res.render("products/allProducts", {
     message: req.flash("success1"),

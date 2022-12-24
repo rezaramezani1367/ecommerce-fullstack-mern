@@ -6,15 +6,20 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Button,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const minDistance = 10;
 function valuetext(value) {
   return `${value}°C`;
 }
-const FilterSection = () => {
+const FilterSection = ({ productData, category, color, brand }) => {
+  const [searchParams, setSearchParams] = useSearchParams({});
+
   const [price, setPrice] = useState([0, 100000]);
+  const [categorySelected, setCategorySelected] = useState([]);
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
@@ -26,24 +31,45 @@ const FilterSection = () => {
       setPrice([price[0], Math.max(newValue[1], price[0] + minDistance)]);
     }
   };
-  console.log(price);
+  const CategoryHandler = () => {};
+  useEffect(() => {}, [categorySelected]);
+
   return (
     <Box>
-      <Typography
-        variant="h6"
-        component="p"
-        color="secondary"
-        fontSize={25}
-        textAlign="center"
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         sx={{
           borderBottom: 1,
           borderColor: "divider",
           paddingBottom: 1,
           paddingY: 1,
+          paddingX: 0.5,
         }}
       >
-        Filter Section
-      </Typography>
+        <Typography
+          variant="h6"
+          component="p"
+          color="secondary"
+          fontSize={25}
+          textAlign="center"
+        >
+          Filter Section
+        </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          // sx={{ marginTop: 3 }}
+          onClick={() => {
+            setSearchParams({});
+            console.log({ searchParams });
+          }}
+        >
+          Clear
+        </Button>
+      </Stack>
       <Box padding={2}>
         {/* price section */}
         <Box marginTop={2}>
@@ -63,6 +89,11 @@ const FilterSection = () => {
             onChange={handleChange1}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
+            onChangeCommitted={() => {
+              setSearchParams({ min_price: price[0], max_price: price[1] });
+              console.log(searchParams.entries());
+              console.log(price);
+            }}
             max={100000}
             disableSwap
           />
@@ -102,18 +133,13 @@ const FilterSection = () => {
             Category
           </Typography>
           <FormGroup>
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label="Label"
-            />
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label="Label"
-            />
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label="Label"
-            />
+            {category.map((item, index) => (
+              <FormControlLabel
+                onChange={CategoryHandler}
+                control={<Checkbox size="small" />}
+                label={item}
+              />
+            ))}
           </FormGroup>
         </Box>
         <Box marginTop={2}>
@@ -126,6 +152,15 @@ const FilterSection = () => {
           >
             Brand
           </Typography>
+          <FormGroup>
+            {brand.map((item, index) => (
+              <FormControlLabel
+                onChange={CategoryHandler}
+                control={<Checkbox size="small" />}
+                label={item}
+              />
+            ))}
+          </FormGroup>
         </Box>
         <Box marginTop={2}>
           <Typography
@@ -137,6 +172,15 @@ const FilterSection = () => {
           >
             Color
           </Typography>
+          <FormGroup>
+            {color.map((item, index) => (
+              <FormControlLabel
+                onChange={CategoryHandler}
+                control={<Checkbox size="small" />}
+                label={item}
+              />
+            ))}
+          </FormGroup>
         </Box>
       </Box>
     </Box>
