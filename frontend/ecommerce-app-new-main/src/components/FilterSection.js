@@ -9,17 +9,33 @@ import {
   Button,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  useQueryParams,
+  StringParam,
+  NumberParam,
+  ArrayParam,
+  withDefault,
+} from "use-query-params";
 
+// create a custom parameter with a default value
+const MyFilterParam = withDefault(ArrayParam, []);
 const minDistance = 10;
 function valuetext(value) {
   return `${value}°C`;
 }
 const FilterSection = ({ productData, category, color, brand }) => {
-  const [searchParams, setSearchParams] = useSearchParams({});
-
+  const [query, setQuery] = useQueryParams({
+    min_price: NumberParam,
+    max_price: NumberParam,
+    categories: MyFilterParam,
+    colors: MyFilterParam,
+    brands: MyFilterParam,
+  });
+  const { min_price: num, max_price: searchQuery, categories } = query;
   const [price, setPrice] = useState([0, 100000]);
   const [categorySelected, setCategorySelected] = useState([]);
+  const [colorSelected, setColorSelected] = useState([]);
+  const [brandSelected, setBrandSelected] = useState([]);
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
@@ -31,8 +47,85 @@ const FilterSection = ({ productData, category, color, brand }) => {
       setPrice([price[0], Math.max(newValue[1], price[0] + minDistance)]);
     }
   };
-  const CategoryHandler = () => {};
-  useEffect(() => {}, [categorySelected]);
+
+  // handle category checked
+  const CategoryHandler = (event, index) => {
+    setCategorySelected((last) => {
+      const help = [...last];
+      help[index] = event.target.checked;
+      return help;
+    });
+  };
+  useEffect(() => {
+    if (category.length) {
+      setCategorySelected((last) => {
+        const categoryItem = [];
+        category.forEach((item) => categoryItem.push(false));
+        return categoryItem;
+      });
+    }
+  }, [category]);
+  useEffect(() => {
+    const categoryItem = [];
+    categorySelected.forEach((item, index) => {
+      if (item) {
+        categoryItem.push(category[index]);
+      }
+    });
+    setQuery({ categories: [...categoryItem] });
+  }, [categorySelected]);
+  // handle color checked
+  const colorHandler = (event, index) => {
+    setColorSelected((last) => {
+      const help = [...last];
+      help[index] = event.target.checked;
+      return help;
+    });
+  };
+  useEffect(() => {
+    if (color.length) {
+      setColorSelected((last) => {
+        const colorItem = [];
+        color.forEach((item) => colorItem.push(false));
+        return colorItem;
+      });
+    }
+  }, [color]);
+  useEffect(() => {
+    const colorItem = [];
+    colorSelected.forEach((item, index) => {
+      if (item) {
+        colorItem.push(color[index]);
+      }
+    });
+    setQuery({ colors: [...colorItem] });
+  }, [colorSelected]);
+  // handle brand checked
+  const brandHandler = (event, index) => {
+    setBrandSelected((last) => {
+      const help = [...last];
+      help[index] = event.target.checked;
+      return help;
+    });
+  };
+  useEffect(() => {
+    if (brand.length) {
+      setBrandSelected((last) => {
+        const brandItem = [];
+        brand.forEach((item) => brandItem.push(false));
+        return brandItem;
+      });
+    }
+  }, [brand]);
+  useEffect(() => {
+    const brandItem = [];
+    brandSelected.forEach((item, index) => {
+      if (item) {
+        brandItem.push(brand[index]);
+      }
+    });
+    setQuery({ brands: [...brandItem] });
+  }, [brandSelected]);
 
   return (
     <Box>
@@ -62,10 +155,7 @@ const FilterSection = ({ productData, category, color, brand }) => {
           color="secondary"
           size="small"
           // sx={{ marginTop: 3 }}
-          onClick={() => {
-            setSearchParams({});
-            console.log({ searchParams });
-          }}
+          onClick={() => {}}
         >
           Clear
         </Button>
@@ -90,8 +180,8 @@ const FilterSection = ({ productData, category, color, brand }) => {
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
             onChangeCommitted={() => {
-              setSearchParams({ min_price: price[0], max_price: price[1] });
-              console.log(searchParams.entries());
+              // setSearchParams({ min_price: price[0], max_price: price[1] });
+              setQuery({ min_price: price[0], max_price: price[1] });
               console.log(price);
             }}
             max={100000}
@@ -135,9 +225,15 @@ const FilterSection = ({ productData, category, color, brand }) => {
           <FormGroup>
             {category.map((item, index) => (
               <FormControlLabel
-                onChange={CategoryHandler}
-                control={<Checkbox size="small" />}
-                label={item}
+                key={item}
+                control={
+                  <Checkbox
+                    size="small"
+                    // checked={categorySelected[index] ?? false}
+                    onChange={(e) => CategoryHandler(e, index)}
+                  />
+                }
+                label={item.toLowerCase()}
               />
             ))}
           </FormGroup>
@@ -155,9 +251,14 @@ const FilterSection = ({ productData, category, color, brand }) => {
           <FormGroup>
             {brand.map((item, index) => (
               <FormControlLabel
-                onChange={CategoryHandler}
-                control={<Checkbox size="small" />}
-                label={item}
+                key={item}
+                control={
+                  <Checkbox
+                    size="small"
+                    onChange={(e) => brandHandler(e, index)}
+                  />
+                }
+                label={item.toLowerCase()}
               />
             ))}
           </FormGroup>
@@ -175,9 +276,14 @@ const FilterSection = ({ productData, category, color, brand }) => {
           <FormGroup>
             {color.map((item, index) => (
               <FormControlLabel
-                onChange={CategoryHandler}
-                control={<Checkbox size="small" />}
-                label={item}
+                key={item}
+                control={
+                  <Checkbox
+                    size="small"
+                    onChange={(e) => colorHandler(e, index)}
+                  />
+                }
+                label={item.toLowerCase()}
               />
             ))}
           </FormGroup>

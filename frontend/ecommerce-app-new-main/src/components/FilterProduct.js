@@ -30,7 +30,6 @@ const FilterProduct = () => {
         minWidth={270}
         width={300}
         border="1px solid"
-        Height={300}
         borderColor="divider"
         alignSelf="flex-start"
         position="sticky"
