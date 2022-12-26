@@ -34,8 +34,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
     brands: MyFilterParam,
   });
   const dispatch = useDispatch();
-  const { min_price: num, max_price: searchQuery, categories } = query;
-  const [price, setPrice] = useState([0, 100000]);
+  const [price, setPrice] = useState([0, 10000]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [colorSelected, setColorSelected] = useState([]);
   const [brandSelected, setBrandSelected] = useState([]);
@@ -129,6 +128,10 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
     });
     setQuery({ brands: [...brandItem] });
   }, [brandSelected]);
+  // set max_price from server
+  useEffect(() => {
+    setPrice([0, Math.ceil(maxPrice)]);
+  }, [maxPrice]);
 
   // send data to server
   useEffect(() => {
@@ -191,9 +194,8 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
             onChangeCommitted={() => {
               // setSearchParams({ min_price: price[0], max_price: price[1] });
               setQuery({ min_price: price[0], max_price: price[1] });
-              console.log(price);
             }}
-            max={maxPrice ? maxPrice : 10005}
+            max={Math.ceil(maxPrice)}
             disableSwap
           />
           <Stack direction="row" justifyContent="space-between">

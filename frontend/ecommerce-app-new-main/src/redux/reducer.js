@@ -22,6 +22,7 @@ export const products = (
     category: [],
     color: [],
     brand: [],
+    maxPrice: 0,
   },
   { type, payload }
 ) => {

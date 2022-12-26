@@ -14,7 +14,7 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
     CategoriesRepeat.brand.push(item.brand);
     CategoriesRepeat.maxPrice.push(item.price);
   });
-  console.log(CategoriesRepeat.maxPrice);
+  // console.log(CategoriesRepeat.maxPrice);
   // min and max price
 
   res.status(200).send({
@@ -119,7 +119,7 @@ exports.filterProducts = asyncHandler(async (req, res, next) => {
   if (req.body.min_price || req.body.max_price) {
     filter["price"] = { $gte: req.body.min_price, $lte: req.body.max_price };
   }
-  // console.log(filter);
+  console.log(filter);
   const product = await Product.find(filter);
   res.status(200).json({
     success: true,

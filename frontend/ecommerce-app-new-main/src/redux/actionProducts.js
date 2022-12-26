@@ -23,6 +23,7 @@ export const getAllProducts = () => async (dispatch, getState) => {
         category: [...data.categories],
         color: [...data.colors],
         brand: [...data.brands],
+        maxPrice: data.maxPrice,
       },
     });
   } catch (error) {
