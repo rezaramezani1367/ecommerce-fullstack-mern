@@ -34,10 +34,8 @@ const FilterProduct = () => {
         borderColor="divider"
         alignSelf="flex-start"
         position="sticky"
-        style={{ height: "88vh", overflowY: "auto", overflowX: "hidden" }}
+        style={{ height: "82vh", overflowY: "auto", overflowX: "hidden" }}
         top={70}
-
-        // borderRadius={1}
       >
         <FilterSection
           productData={productData}

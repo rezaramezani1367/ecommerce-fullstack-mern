@@ -7,7 +7,12 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Accordion as MuiAccordion,
+  AccordionSummary,
+  AccordionDetails as MuiAccordionDetails,
+  styled,
 } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import {
   useQueryParams,
@@ -18,6 +23,24 @@ import {
 } from "use-query-params";
 import { filterProducts } from "../redux/actionProducts";
 import { useDispatch } from "react-redux";
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters evesquare {...props} />
+))(({ theme }) => ({
+  borderBottom: `1px solid ${theme.palette.divider}`,
+  borderTop: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
 
 // create a custom parameter with a default value
 const MyFilterParam = withDefault(ArrayParam, []);
@@ -146,8 +169,6 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
         justifyContent="space-between"
         alignItems="center"
         sx={{
-          borderBottom: 1,
-          borderColor: "divider",
           paddingBottom: 1,
           paddingY: 1,
           paddingX: 0.5,
@@ -172,133 +193,170 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
           Clear
         </Button>
       </Stack>
-      <Box padding={2}>
+      <Box>
         {/* price section */}
-        <Box marginTop={2}>
-          <Typography
-            variant="p"
-            component="p"
-            fontSize={18}
-            fontWeight="bold"
-            sx={{ borderBottom: 1, borderColor: "divider", paddingBottom: 1 }}
+        <Accordion
+          disableGutters
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+          defaultExpanded={true}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Price
-          </Typography>
-          <Slider
-            sx={{ marginTop: 2 }}
-            getAriaLabel={() => "Minimum distance"}
-            value={price}
-            onChange={handleChange1}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
-            onChangeCommitted={() => {
-              // setSearchParams({ min_price: price[0], max_price: price[1] });
-              setQuery({ min_price: price[0], max_price: price[1] });
-            }}
-            max={Math.ceil(maxPrice)}
-            disableSwap
-          />
-          <Stack direction="row" justifyContent="space-between">
-            <Box
-              sx={{
-                border: 1,
-                borderColor: "divider",
-                paddingY: 0.7,
-                minWidth: 100,
-                textAlign: "center",
+            <Typography variant="p" fontSize={18} fontWeight="bold">
+              Price
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Slider
+              getAriaLabel={() => "Minimum distance"}
+              value={price}
+              onChange={handleChange1}
+              valueLabelDisplay="auto"
+              getAriaValueText={valuetext}
+              onChangeCommitted={() => {
+                // setSearchParams({ min_price: price[0], max_price: price[1] });
+                setQuery({ min_price: price[0], max_price: price[1] });
               }}
-            >
-              {price[0]}
-            </Box>
-            <Box
-              sx={{
-                border: 1,
-                borderColor: "divider",
-                paddingY: 0.7,
-                minWidth: 100,
-                textAlign: "center",
-              }}
-            >
-              {price[1]}
-            </Box>
-          </Stack>
-        </Box>
-        <Box marginTop={2}>
-          <Typography
-            variant="p"
-            component="p"
-            fontSize={18}
-            fontWeight="bold"
-            sx={{ borderBottom: 1, borderColor: "divider", paddingBottom: 1 }}
+              max={Math.ceil(maxPrice)}
+              disableSwap
+            />
+            <Stack direction="row" justifyContent="space-between">
+              <Box
+                sx={{
+                  border: 1,
+                  borderColor: "divider",
+                  paddingY: 0.7,
+                  minWidth: 100,
+                  textAlign: "center",
+                }}
+              >
+                {price[0]}
+              </Box>
+              <Box
+                sx={{
+                  border: 1,
+                  borderColor: "divider",
+                  paddingY: 0.7,
+                  minWidth: 100,
+                  textAlign: "center",
+                }}
+              >
+                {price[1]}
+              </Box>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          eve
+          disableGutters
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Category
-          </Typography>
-          <FormGroup>
-            {category.map((item, index) => (
-              <FormControlLabel
-                key={item}
-                control={
-                  <Checkbox
-                    size="small"
-                    // checked={categorySelected[index] ?? false}
-                    onChange={(e) => CategoryHandler(e, index)}
-                  />
-                }
-                label={item.toLowerCase()}
-              />
-            ))}
-          </FormGroup>
-        </Box>
-        <Box marginTop={2}>
-          <Typography
-            variant="p"
-            component="p"
-            fontSize={18}
-            fontWeight="bold"
-            sx={{ borderBottom: 1, borderColor: "divider", paddingBottom: 1 }}
+            <Typography variant="p" fontSize={18} fontWeight="bold">
+              Category
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {category.map((item, index) => (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      size="small"
+                      // checked={categorySelected[index] ?? false}
+                      onChange={(e) => CategoryHandler(e, index)}
+                    />
+                  }
+                  label={item.toLowerCase()}
+                />
+              ))}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion
+          evedisableGutters
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+            borderRadius: 0,
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Brand
-          </Typography>
-          <FormGroup>
-            {brand.map((item, index) => (
-              <FormControlLabel
-                key={item}
-                control={
-                  <Checkbox
-                    size="small"
-                    onChange={(e) => brandHandler(e, index)}
-                  />
-                }
-                label={item.toLowerCase()}
-              />
-            ))}
-          </FormGroup>
-        </Box>
-        <Box marginTop={2}>
-          <Typography
-            variant="p"
-            component="p"
-            fontSize={18}
-            fontWeight="bold"
-            sx={{ borderBottom: 1, borderColor: "divider", paddingBottom: 1 }}
+            <Typography variant="p" fontSize={18} fontWeight="bold">
+              Brand
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {brand.map((item, index) => (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      size="small"
+                      onChange={(e) => brandHandler(e, index)}
+                    />
+                  }
+                  label={item.toLowerCase()}
+                />
+              ))}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          eve
+          disableGutters
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMore />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
           >
-            Color
-          </Typography>
-          <FormGroup>
-            {color.map((item, index) => (
-              <FormControlLabel
-                key={item}
-                control={
-                  <Checkbox
-                    size="small"
-                    onChange={(e) => colorHandler(e, index)}
-                  />
-                }
-                label={item.toLowerCase()}
-              />
-            ))}
-          </FormGroup>
-        </Box>
+            <Typography variant="p" fontSize={18} fontWeight="bold">
+              Color
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {color.map((item, index) => (
+                <FormControlLabel
+                  key={item}
+                  control={
+                    <Checkbox
+                      size="small"
+                      // checked={categorySelected[index] ?? false}
+                      onChange={(e) => colorHandler(e, index)}
+                    />
+                  }
+                  label={item.toLowerCase()}
+                />
+              ))}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
       </Box>
     </Box>
   );
