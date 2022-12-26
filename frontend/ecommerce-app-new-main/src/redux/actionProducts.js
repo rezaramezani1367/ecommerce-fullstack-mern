@@ -91,3 +91,34 @@ export const getPaginateProducts = (from, to) => (dispatch, getState) => {
     });
   }
 };
+export const filterProducts = (query) =>async (dispatch, getState) => {
+  dispatch({
+    type: productLoading,
+    payload: { ...getState().products, productLoading: true },
+  });
+
+  try {
+    const { data } = await client.post("/product/filter",{...query});
+    // console.log(data)
+    dispatch({
+      type: productSuccess,
+      payload: {
+        ...getState().products,
+        productLoading: false,
+        productError: "",
+         paginationData: [...data.data],
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: productError,
+      payload: {
+        ...getState().products,
+        productLoading: false,
+        productError: error.message,
+      },
+    });
+  }
+};
+
+

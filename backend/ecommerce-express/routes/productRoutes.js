@@ -49,5 +49,7 @@ router
   .get(productControllers.getOneProduct)
   .put(productControllers.updateProductById)
   .delete(productControllers.deleteProductById);
-
+  router
+  .route("/filter")
+  .post(productControllers.filterProducts)
 module.exports = router;

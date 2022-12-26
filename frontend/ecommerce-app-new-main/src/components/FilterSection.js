@@ -16,6 +16,9 @@ import {
   ArrayParam,
   withDefault,
 } from "use-query-params";
+import { filterProducts } from "../redux/actionProducts";
+import { useDispatch } from "react-redux";
+
 
 // create a custom parameter with a default value
 const MyFilterParam = withDefault(ArrayParam, []);
@@ -31,6 +34,7 @@ const FilterSection = ({ productData, category, color, brand }) => {
     colors: MyFilterParam,
     brands: MyFilterParam,
   });
+  const dispatch = useDispatch();
   const { min_price: num, max_price: searchQuery, categories } = query;
   const [price, setPrice] = useState([0, 100000]);
   const [categorySelected, setCategorySelected] = useState([]);
@@ -126,6 +130,12 @@ const FilterSection = ({ productData, category, color, brand }) => {
     });
     setQuery({ brands: [...brandItem] });
   }, [brandSelected]);
+
+  // send data to server
+  useEffect(() => {
+    // console.log(query);
+    dispatch(filterProducts(query));
+  }, [query]);
 
   return (
     <Box>

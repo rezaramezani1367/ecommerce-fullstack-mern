@@ -14,7 +14,7 @@ const FilterProduct = () => {
     products: {
       productLoading,
       productData,
-      productError,
+      paginationData,
       category,
       color,
       brand,
@@ -50,7 +50,7 @@ const FilterProduct = () => {
           <Loading />
         ) : (
           <Grid container>
-            {productData.map((item, index) => (
+            {paginationData.map((item, index) => (
               <Grid xs={12} md={6} lg={4} key={item._id}>
                 <ProducsItem item={item} />
               </Grid>

@@ -16,12 +16,12 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
 
   // min and max price
 
-  res.status(200).send(
-    {data: product,
+  res.status(200).send({
+    data: product,
     categories: [...new Set(CategoriesRepeat.category)],
     colors: [...new Set(CategoriesRepeat.color)],
-    brands: [...new Set(CategoriesRepeat.brand)],}
- );
+    brands: [...new Set(CategoriesRepeat.brand)],
+  });
 
   /*res.render("products/allProducts", {
     message: req.flash("success1"),
@@ -97,6 +97,22 @@ exports.deleteProductById = asyncHandler(async (req, res, next) => {
   product = await Product.find({});
   /* req.flash("success1", "product deleted successfully"),
     res.redirect("/api/v1/Products/");*/
+  res.status(200).json({
+    success: true,
+    data: product,
+  });
+});
+exports.filterProducts = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+  const product = await Product.find({
+    $and: [
+      {
+        category: { $in: req.body.categories },
+        color: { $in: req.body.colors },
+        brand: { $in: req.body.brands },
+      },
+    ],
+  });
   res.status(200).json({
     success: true,
     data: product,
