@@ -12,20 +12,19 @@ export const getAllProducts = () => async (dispatch, getState) => {
   });
   try {
     const { data } = await client.get("/product/");
-
+    // console.log(data);
     dispatch({
       type: productSuccess,
       payload: {
+        ...getState().products,
         productLoading: false,
         productData: [...data.data],
         productError: "",
-        paginationData: [],
         category: [...data.categories],
         color: [...data.colors],
         brand: [...data.brands],
       },
     });
-
   } catch (error) {
     dispatch({
       type: productError,
@@ -91,14 +90,14 @@ export const getPaginateProducts = (from, to) => (dispatch, getState) => {
     });
   }
 };
-export const filterProducts = (query) =>async (dispatch, getState) => {
+export const filterProducts = (query) => async (dispatch, getState) => {
   dispatch({
     type: productLoading,
     payload: { ...getState().products, productLoading: true },
   });
 
   try {
-    const { data } = await client.post("/product/filter",{...query});
+    const { data } = await client.post("/product/filter", { ...query });
     // console.log(data)
     dispatch({
       type: productSuccess,
@@ -106,7 +105,7 @@ export const filterProducts = (query) =>async (dispatch, getState) => {
         ...getState().products,
         productLoading: false,
         productError: "",
-         paginationData: [...data.data],
+        paginationData: [...data.data],
       },
     });
   } catch (error) {
@@ -120,5 +119,3 @@ export const filterProducts = (query) =>async (dispatch, getState) => {
     });
   }
 };
-
-

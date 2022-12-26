@@ -18,6 +18,7 @@ const FilterProduct = () => {
       category,
       color,
       brand,
+      maxPrice,
     },
   } = useSelector((last) => last);
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const FilterProduct = () => {
           category={category}
           color={color}
           brand={brand}
+          maxPrice={maxPrice}
         />
       </Box>
       <Box width="100%">

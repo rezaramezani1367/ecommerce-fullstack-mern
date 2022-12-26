@@ -7,13 +7,14 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const product = await Product.find({}, { numReviews: 0 });
   // all category color brand without repeat
 
-  const CategoriesRepeat = { category: [], color: [], brand: [] };
+  const CategoriesRepeat = { category: [], color: [], brand: [], maxPrice: [] };
   product.forEach((item) => {
     CategoriesRepeat.category.push(item.category);
     CategoriesRepeat.color.push(item.color);
     CategoriesRepeat.brand.push(item.brand);
+    CategoriesRepeat.maxPrice.push(item.price);
   });
-
+  console.log(CategoriesRepeat.maxPrice);
   // min and max price
 
   res.status(200).send({
@@ -21,6 +22,7 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
     categories: [...new Set(CategoriesRepeat.category)],
     colors: [...new Set(CategoriesRepeat.color)],
     brands: [...new Set(CategoriesRepeat.brand)],
+    maxPrice: Math.max(...CategoriesRepeat.maxPrice),
   });
 
   /*res.render("products/allProducts", {
@@ -103,16 +105,22 @@ exports.deleteProductById = asyncHandler(async (req, res, next) => {
   });
 });
 exports.filterProducts = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
-  const product = await Product.find({
-    $and: [
-      {
-        category: { $in: req.body.categories },
-        color: { $in: req.body.colors },
-        brand: { $in: req.body.brands },
-      },
-    ],
-  });
+  // console.log(req.body);
+  const filter = {};
+  if (req.body.categories.length) {
+    filter["category"] = { $in: req.body.categories };
+  }
+  if (req.body.colors.length) {
+    filter["color"] = { $in: req.body.colors };
+  }
+  if (req.body.brands.length) {
+    filter["brand"] = { $in: req.body.brands };
+  }
+  if (req.body.min_price || req.body.max_price) {
+    filter["price"] = { $gte: req.body.min_price, $lte: req.body.max_price };
+  }
+  // console.log(filter);
+  const product = await Product.find(filter);
   res.status(200).json({
     success: true,
     data: product,

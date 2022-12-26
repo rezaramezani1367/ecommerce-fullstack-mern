@@ -19,14 +19,13 @@ import {
 import { filterProducts } from "../redux/actionProducts";
 import { useDispatch } from "react-redux";
 
-
 // create a custom parameter with a default value
 const MyFilterParam = withDefault(ArrayParam, []);
 const minDistance = 10;
 function valuetext(value) {
   return `${value}°C`;
 }
-const FilterSection = ({ productData, category, color, brand }) => {
+const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
   const [query, setQuery] = useQueryParams({
     min_price: NumberParam,
     max_price: NumberParam,
@@ -194,7 +193,7 @@ const FilterSection = ({ productData, category, color, brand }) => {
               setQuery({ min_price: price[0], max_price: price[1] });
               console.log(price);
             }}
-            max={100000}
+            max={maxPrice ? maxPrice : 10005}
             disableSwap
           />
           <Stack direction="row" justifyContent="space-between">
