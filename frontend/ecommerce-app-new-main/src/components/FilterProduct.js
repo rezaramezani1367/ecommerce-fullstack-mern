@@ -34,7 +34,20 @@ const FilterProduct = () => {
         borderColor="divider"
         alignSelf="flex-start"
         position="sticky"
-        style={{ height: "82vh", overflowY: "auto", overflowX: "hidden" }}
+        sx={{
+          maxHeight: "83vh",
+          overflowY: "auto",
+          overflowX: "hidden",
+          "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+            backgroundColor: "transparent",
+            width: 3,
+          },
+          "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+            borderRadius: 8,
+            backgroundColor: "#ccc",
+            minHeight: 10,
+          },
+        }}
         top={70}
       >
         <FilterSection

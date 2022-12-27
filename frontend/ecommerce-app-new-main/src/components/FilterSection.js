@@ -25,7 +25,7 @@ import { filterProducts } from "../redux/actionProducts";
 import { useDispatch } from "react-redux";
 
 const Accordion = styled((props) => (
-  <MuiAccordion disableGutters evesquare {...props} />
+  <MuiAccordion disableGutters square {...props} />
 ))(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.divider}`,
   borderTop: `1px solid ${theme.palette.divider}`,
