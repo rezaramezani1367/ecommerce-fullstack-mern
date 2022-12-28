@@ -57,10 +57,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
     brands: MyFilterParam,
   });
   const dispatch = useDispatch();
-  const [price, setPrice] = useState([0, 10000]);
-  const [categorySelected, setCategorySelected] = useState([]);
-  const [colorSelected, setColorSelected] = useState([]);
-  const [brandSelected, setBrandSelected] = useState([]);
+  const [price, setPrice] = useState([0, 0]);
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
@@ -75,85 +72,57 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
 
   // handle category checked
   const CategoryHandler = (event, index) => {
-    setCategorySelected((last) => {
-      const help = [...last];
-      help[index] = event.target.checked;
-      return help;
+    setQuery((last) => {
+      const help = [...last.categories];
+      if (event.target.checked) {
+        help.push(category[index]);
+      } else {
+        const indexQueryCat = help.indexOf(category[index]);
+        if (indexQueryCat >= 0) help.splice(indexQueryCat, 1);
+      }
+
+      return { ...last, categories: [...help] };
     });
   };
-  useEffect(() => {
-    if (category.length) {
-      setCategorySelected((last) => {
-        const categoryItem = [];
-        category.forEach((item) => categoryItem.push(false));
-        return categoryItem;
-      });
-    }
-  }, [category]);
-  useEffect(() => {
-    const categoryItem = [];
-    categorySelected.forEach((item, index) => {
-      if (item) {
-        categoryItem.push(category[index]);
-      }
-    });
-    setQuery({ categories: [...categoryItem] });
-  }, [categorySelected]);
+
   // handle color checked
   const colorHandler = (event, index) => {
-    setColorSelected((last) => {
-      const help = [...last];
-      help[index] = event.target.checked;
-      return help;
+    setQuery((last) => {
+      const help = [...last.colors];
+      if (event.target.checked) {
+        help.push(color[index]);
+      } else {
+        const indexQueryColor = help.indexOf(color[index]);
+        if (indexQueryColor >= 0) help.splice(indexQueryColor, 1);
+      }
+
+      return { ...last, colors: [...help] };
     });
   };
-  useEffect(() => {
-    if (color.length) {
-      setColorSelected((last) => {
-        const colorItem = [];
-        color.forEach((item) => colorItem.push(false));
-        return colorItem;
-      });
-    }
-  }, [color]);
-  useEffect(() => {
-    const colorItem = [];
-    colorSelected.forEach((item, index) => {
-      if (item) {
-        colorItem.push(color[index]);
-      }
-    });
-    setQuery({ colors: [...colorItem] });
-  }, [colorSelected]);
+
   // handle brand checked
   const brandHandler = (event, index) => {
-    setBrandSelected((last) => {
-      const help = [...last];
-      help[index] = event.target.checked;
-      return help;
+    setQuery((last) => {
+      const help = [...last.brands];
+      if (event.target.checked) {
+        help.push(brand[index]);
+      } else {
+        const indexQueryBrand = help.indexOf(brand[index]);
+        if (indexQueryBrand >= 0) help.splice(indexQueryBrand, 1);
+      }
+
+      return { ...last, brands: [...help] };
     });
   };
-  useEffect(() => {
-    if (brand.length) {
-      setBrandSelected((last) => {
-        const brandItem = [];
-        brand.forEach((item) => brandItem.push(false));
-        return brandItem;
-      });
-    }
-  }, [brand]);
-  useEffect(() => {
-    const brandItem = [];
-    brandSelected.forEach((item, index) => {
-      if (item) {
-        brandItem.push(brand[index]);
-      }
-    });
-    setQuery({ brands: [...brandItem] });
-  }, [brandSelected]);
+
   // set max_price from server
   useEffect(() => {
-    setPrice([0, Math.ceil(maxPrice)]);
+    if (query.max_price || query.min_price) {
+      // console.log({ max: query.max_price, min: query.min_price });
+      setPrice([query.min_price, query.max_price]);
+    } else {
+      setPrice([0, Math.ceil(maxPrice)]);
+    }
   }, [maxPrice]);
 
   // send data to server
@@ -188,7 +157,18 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
           color="secondary"
           size="small"
           // sx={{ marginTop: 3 }}
-          onClick={() => {}}
+          onClick={() => {
+            setPrice([0, Math.ceil(maxPrice)]);
+            setQuery((last) => {
+              return {
+                max_price: undefined,
+                min_price: undefined,
+                categories: undefined,
+                brands: undefined,
+                colors: undefined,
+              };
+            });
+          }}
         >
           Clear
         </Button>
@@ -253,7 +233,6 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          eve
           disableGutters
           sx={{
             borderBottom: 1,
@@ -276,8 +255,8 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                   key={item}
                   control={
                     <Checkbox
+                      checked={query.categories.includes(category[index])}
                       size="small"
-                      // checked={categorySelected[index] ?? false}
                       onChange={(e) => CategoryHandler(e, index)}
                     />
                   }
@@ -289,7 +268,6 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
         </Accordion>
 
         <Accordion
-          evedisableGutters
           sx={{
             borderBottom: 1,
             borderColor: "divider",
@@ -312,6 +290,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                   key={item}
                   control={
                     <Checkbox
+                      checked={query.brands.includes(brand[index])}
                       size="small"
                       onChange={(e) => brandHandler(e, index)}
                     />
@@ -323,8 +302,6 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          eve
-          disableGutters
           sx={{
             borderBottom: 1,
             borderColor: "divider",
@@ -346,6 +323,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                   key={item}
                   control={
                     <Checkbox
+                      checked={query.colors.includes(color[index])}
                       size="small"
                       // checked={categorySelected[index] ?? false}
                       onChange={(e) => colorHandler(e, index)}
