@@ -129,6 +129,10 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
   useEffect(() => {
     // console.log(query);
     dispatch(filterProducts(query));
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
   }, [query]);
 
   return (
@@ -233,11 +237,11 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          disableGutters
           sx={{
             borderBottom: 1,
             borderColor: "divider",
           }}
+          defaultExpanded={true}
         >
           <AccordionSummary
             expandIcon={<ExpandMore />}
@@ -273,6 +277,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
             borderColor: "divider",
             borderRadius: 0,
           }}
+          defaultExpanded={true}
         >
           <AccordionSummary
             expandIcon={<ExpandMore />}
@@ -306,6 +311,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
             borderBottom: 1,
             borderColor: "divider",
           }}
+          defaultExpanded={true}
         >
           <AccordionSummary
             expandIcon={<ExpandMore />}

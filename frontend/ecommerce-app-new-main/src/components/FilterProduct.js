@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import ErrorPage from "./ErrorPage";
 import FilterSection from "./FilterSection";
+import StickyBox from "react-sticky-box";
 
 const FilterProduct = () => {
   const {
@@ -26,38 +27,25 @@ const FilterProduct = () => {
     dispatch(getAllProducts());
   }, []);
   return (
-    <Stack direction="row" gap={1}>
-      <Box
-        minWidth={270}
-        width={300}
-        border="1px solid"
-        borderColor="divider"
-        alignSelf="flex-start"
-        position="sticky"
-        sx={{
-          maxHeight: "83vh",
-          overflowY: "auto",
-          overflowX: "hidden",
-          "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-            backgroundColor: "transparent",
-            width: 3,
-          },
-          "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
-            borderRadius: 8,
-            backgroundColor: "#ccc",
-            minHeight: 10,
-          },
-        }}
-        top={70}
-      >
-        <FilterSection
-          productData={productData}
-          category={category}
-          color={color}
-          brand={brand}
-          maxPrice={maxPrice}
-        />
-      </Box>
+    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
+      <StickyBox offsetTop={70} offsetBottom={20}>
+        <Box
+          border="1px solid"
+          borderColor="divider"
+          alignSelf="flex-start"
+          minWidth={270}
+          width={300}
+        >
+          <FilterSection
+            productData={productData}
+            category={category}
+            color={color}
+            brand={brand}
+            maxPrice={maxPrice}
+          />
+        </Box>
+      </StickyBox>
+
       <Box width="100%">
         {productLoading ? (
           <Loading />
@@ -71,7 +59,7 @@ const FilterProduct = () => {
           </Grid>
         )}
       </Box>
-    </Stack>
+    </Box>
   );
 };
 
