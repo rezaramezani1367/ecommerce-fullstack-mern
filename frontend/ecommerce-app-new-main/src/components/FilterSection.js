@@ -11,6 +11,7 @@ import {
   AccordionSummary,
   AccordionDetails as MuiAccordionDetails,
   styled,
+  TextField,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
@@ -44,7 +45,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 // create a custom parameter with a default value
 const MyFilterParam = withDefault(ArrayParam, []);
-const minDistance = 10;
+const minDistance = 1;
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -133,6 +134,9 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
       top: 0,
       behavior: "auto",
     });
+    if (query.min_price == undefined) {
+      setPrice([0, Math.ceil(maxPrice)]);
+    }
   }, [query]);
 
   return (
@@ -204,35 +208,48 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
               valueLabelDisplay="auto"
               getAriaValueText={valuetext}
               onChangeCommitted={() => {
-                // setSearchParams({ min_price: price[0], max_price: price[1] });
                 setQuery({ min_price: price[0], max_price: price[1] });
               }}
               max={Math.ceil(maxPrice)}
               disableSwap
             />
             <Stack direction="row" justifyContent="space-between">
-              <Box
+              <TextField
                 sx={{
-                  border: 1,
-                  borderColor: "divider",
-                  paddingY: 0.7,
-                  minWidth: 100,
-                  textAlign: "center",
+                  width: 100,
                 }}
-              >
-                {price[0]}
-              </Box>
-              <Box
+                size="small"
+                value={price[0]}
+                onChange={(e) => {
+                  let value = Number(e.target.value);
+                  if (!isNaN(value)) {
+                    handleChange1(e, [value, price[1]], 0);
+                    setQuery({ min_price: value, max_price: price[1] });
+                  }
+                }}
+                label="min"
+              />
+              <TextField
                 sx={{
-                  border: 1,
-                  borderColor: "divider",
-                  paddingY: 0.7,
-                  minWidth: 100,
-                  textAlign: "center",
+                  width: 100,
                 }}
-              >
-                {price[1]}
-              </Box>
+                size="small"
+                value={price[1]}
+                onChange={(e) => {
+                  let value = Number(e.target.value);
+                  if (!isNaN(value) && value <= maxPrice) {
+                    handleChange1(e, [price[0], value], 1);
+                    setQuery({
+                      min_price: price[0],
+                      max_price:
+                        value >= price[0] + minDistance
+                          ? value
+                          : price[0] + minDistance,
+                    });
+                  }
+                }}
+                label="max"
+              />
             </Stack>
           </AccordionDetails>
         </Accordion>

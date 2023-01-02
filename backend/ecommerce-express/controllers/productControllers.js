@@ -22,7 +22,7 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
     categories: [...new Set(CategoriesRepeat.category)],
     colors: [...new Set(CategoriesRepeat.color)],
     brands: [...new Set(CategoriesRepeat.brand)],
-    maxPrice: Math.max(...CategoriesRepeat.maxPrice),
+    maxPrice: Math.ceil(Math.max(...CategoriesRepeat.maxPrice)),
   });
 
   /*res.render("products/allProducts", {
