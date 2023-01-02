@@ -224,7 +224,13 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                   let value = Number(e.target.value);
                   if (!isNaN(value)) {
                     handleChange1(e, [value, price[1]], 0);
-                    setQuery({ min_price: value, max_price: price[1] });
+                    setQuery({
+                      min_price:
+                        value <= price[1] - minDistance
+                          ? value
+                          : price[1] - minDistance,
+                      max_price: price[1],
+                    });
                   }
                 }}
                 label="min"
