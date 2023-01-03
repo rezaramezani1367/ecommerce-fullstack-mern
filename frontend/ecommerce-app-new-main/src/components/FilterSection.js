@@ -220,6 +220,18 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                 }}
                 size="small"
                 value={price[0]}
+                onChangeCommitted={(e) => {
+                  let value = Number(e.target.value);
+                  if (!isNaN(value)) {
+                    setQuery({
+                      min_price:
+                        value <= price[1] - minDistance
+                          ? value
+                          : price[1] - minDistance,
+                      max_price: price[1],
+                    });
+                  }
+                }}
                 onChange={(e) => {
                   let value = Number(e.target.value);
                   if (!isNaN(value)) {
@@ -241,6 +253,18 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                 }}
                 size="small"
                 value={price[1]}
+                onChangeCommitted={(e) => {
+                  let value = Number(e.target.value);
+                  if (!isNaN(value)) {
+                    setQuery({
+                      min_price: price[0],
+                      max_price:
+                        value >= price[0] + minDistance
+                          ? value
+                          : price[0] + minDistance,
+                    });
+                  }
+                }}
                 onChange={(e) => {
                   let value = Number(e.target.value);
                   if (!isNaN(value) && value <= maxPrice) {
