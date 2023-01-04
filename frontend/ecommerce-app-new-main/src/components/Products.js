@@ -11,13 +11,17 @@ import ProducsItem from "./ProducsItem";
 const Products = () => {
   const [newLoading, setNewLoading] = useState(false);
   const {
-    products: { productLoading, productData, productError, paginationData },
+    products: {
+      productLoading,
+      productData,
+      productError,
+      paginationData: { docs },
+    },
   } = useSelector((last) => last);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
-
   switch (true) {
     case Boolean(productError):
       return <ErrorPage error={productError} />;
@@ -33,7 +37,7 @@ const Products = () => {
                 <Loading />
               ) : (
                 <Grid container spacing={1}>
-                  {paginationData.map((item, index) => (
+                  {docs.map((item, index) => (
                     <Grid xs={12} md={6} lg={4} key={item._id}>
                       <ProducsItem item={item} />
                     </Grid>

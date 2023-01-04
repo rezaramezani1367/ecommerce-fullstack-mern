@@ -105,22 +105,25 @@ exports.deleteProductById = asyncHandler(async (req, res, next) => {
   });
 });
 exports.filterProducts = asyncHandler(async (req, res, next) => {
-  // console.log(req.body);
+  console.log(req.body);
+  const option = {
+    page: req.body.page,
+  };
   const filter = {};
-  if (req.body.categories.length) {
+  if (req.body.categories && req.body.categories.length) {
     filter["category"] = { $in: req.body.categories };
   }
-  if (req.body.colors.length) {
+  if (req.body.colors && req.body.colors.length) {
     filter["color"] = { $in: req.body.colors };
   }
-  if (req.body.brands.length) {
+  if (req.body.brands && req.body.brands.length) {
     filter["brand"] = { $in: req.body.brands };
   }
   if (req.body.min_price || req.body.max_price) {
     filter["price"] = { $gte: req.body.min_price, $lte: req.body.max_price };
   }
-  console.log(filter);
-  const product = await Product.find(filter);
+  console.log({ option ,filter});
+  const product = await Product.paginate(filter, option);
   res.status(200).json({
     success: true,
     data: product,

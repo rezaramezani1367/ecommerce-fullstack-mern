@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import ErrorPage from "./ErrorPage";
 import FilterSection from "./FilterSection";
 import StickyBox from "react-sticky-box";
+import FilterPagination from "./FilterPagination";
 
 const FilterProduct = () => {
   const {
@@ -50,13 +51,16 @@ const FilterProduct = () => {
         {productLoading ? (
           <Loading />
         ) : (
-          <Grid container>
-            {paginationData.map((item, index) => (
-              <Grid xs={12} md={6} lg={4} key={item._id}>
-                <ProducsItem item={item} />
-              </Grid>
-            ))}
-          </Grid>
+          <>
+            <Grid container>
+              {paginationData.docs.map((item, index) => (
+                <Grid xs={12} md={6} lg={4} key={item._id}>
+                  <ProducsItem item={item} />
+                </Grid>
+              ))}
+            </Grid>
+            <FilterPagination paginationData={paginationData} />
+          </>
         )}
       </Box>
     </Box>

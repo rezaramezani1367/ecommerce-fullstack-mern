@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var uniqueValidator = require("mongoose-unique-validator");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const productSchema = new mongoose.Schema(
   {
@@ -57,10 +58,11 @@ const productSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-
+productSchema.plugin(mongoosePaginate);
 const Product = mongoose.model("Product", productSchema);
 // Apply the uniqueValidator plugin to productSchema.
 productSchema.plugin(uniqueValidator, {
   message: "{PATH} already exists(must be unique)",
 });
+
 module.exports = Product;

@@ -129,6 +129,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
   // send data to server
   useEffect(() => {
     // console.log(query);
+    setQuery({ page: undefined });
     dispatch(filterProducts(query));
     window.scrollTo({
       top: 0,

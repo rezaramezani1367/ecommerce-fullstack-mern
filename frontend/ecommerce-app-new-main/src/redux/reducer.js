@@ -18,7 +18,7 @@ export const products = (
     productLoading: false,
     productData: [],
     productError: "",
-    paginationData: [],
+    paginationData: { docs: [] },
     category: [],
     color: [],
     brand: [],

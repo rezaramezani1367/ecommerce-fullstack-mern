@@ -77,7 +77,9 @@ export const getPaginateProducts = (from, to) => (dispatch, getState) => {
         ...getState().products,
         productLoading: false,
         productError: "",
-        paginationData: getState().products.productData.slice(from, to),
+        paginationData: {
+          docs: getState().products.productData.slice(from, to),
+        },
       },
     });
   } catch (error) {
@@ -98,17 +100,21 @@ export const filterProducts = (query) => async (dispatch, getState) => {
   });
 
   try {
-    const { data } = await client.post("/product/filter", { ...query });
-    // console.log(data)
+    console.log(query);
+    const {
+      data: { data },
+    } = await client.post("/product/filter", { ...query });
+    console.log(data.docs);
     dispatch({
       type: productSuccess,
       payload: {
         ...getState().products,
         productLoading: false,
         productError: "",
-        paginationData: [...data.data],
+        paginationData: { ...data },
       },
     });
+    console.log(getState().products);
   } catch (error) {
     dispatch({
       type: productError,
