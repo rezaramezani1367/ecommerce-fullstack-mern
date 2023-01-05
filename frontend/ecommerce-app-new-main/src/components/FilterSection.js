@@ -57,6 +57,9 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
     colors: MyFilterParam,
     brands: MyFilterParam,
   });
+  const [queryPage, setQueryPage] = useQueryParams({
+    page: NumberParam,
+  });
   const dispatch = useDispatch();
   const [price, setPrice] = useState([0, 0]);
   const handleChange1 = (event, newValue, activeThumb) => {
@@ -129,7 +132,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
   // send data to server
   useEffect(() => {
     // console.log(query);
-    setQuery({ page: undefined });
+    setQueryPage({ page: undefined });
     dispatch(filterProducts(query));
     window.scrollTo({
       top: 0,
@@ -139,6 +142,16 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
       setPrice([0, Math.ceil(maxPrice)]);
     }
   }, [query]);
+  useEffect(() => {
+    dispatch(filterProducts({ ...query, ...queryPage }));
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
+    if (query.min_price == undefined) {
+      setPrice([0, Math.ceil(maxPrice)]);
+    }
+  }, [queryPage]);
 
   return (
     <Box>
@@ -177,6 +190,7 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
                 colors: undefined,
               };
             });
+            setQueryPage({ page: undefined });
           }}
         >
           Clear

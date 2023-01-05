@@ -16,8 +16,7 @@ const FilterPagination = ({ paginationData: { totalPages, page } }) => {
     page: NumberParam,
   });
   const handleChange = (event, value) => {
-    setQuery({ page: value });
-    dispatch(filterProducts({ page: value ,...query}));
+    setQuery({ page: value === 1 ? undefined : value });
   };
   return (
     <>

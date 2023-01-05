@@ -108,6 +108,7 @@ exports.filterProducts = asyncHandler(async (req, res, next) => {
   console.log(req.body);
   const option = {
     page: req.body.page,
+    limit: 9,
   };
   const filter = {};
   if (req.body.categories && req.body.categories.length) {
@@ -122,7 +123,7 @@ exports.filterProducts = asyncHandler(async (req, res, next) => {
   if (req.body.min_price || req.body.max_price) {
     filter["price"] = { $gte: req.body.min_price, $lte: req.body.max_price };
   }
-  console.log({ option ,filter});
+  console.log({ option, filter });
   const product = await Product.paginate(filter, option);
   res.status(200).json({
     success: true,
