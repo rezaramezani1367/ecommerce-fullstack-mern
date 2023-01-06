@@ -60,9 +60,9 @@ const FilterProduct = () => {
       top: 0,
       behavior: "auto",
     });
-    if (!mediumViewport) {
-      setOpen(false);
-    }
+    // if (!mediumViewport) {
+    //   setOpen(false);
+    // }
   }, [query]);
   useEffect(() => {
     dispatch(filterProducts({ ...query, ...queryPage }));
@@ -102,7 +102,7 @@ const FilterProduct = () => {
           </Box>
         </StickyBox>
       ) : (
-        <FilterSectionMobile open={open} setOpen={setOpen}>
+        <FilterSectionMobile open={open} setOpen={setOpen} countProduct={paginationData.totalDocs}>
           <Box padding={1.5}>
             <FilterSection
               productData={productData}
