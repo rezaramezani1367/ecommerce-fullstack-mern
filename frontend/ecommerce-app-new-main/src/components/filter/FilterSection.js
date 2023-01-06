@@ -15,14 +15,8 @@ import {
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import {
-  useQueryParams,
-  StringParam,
-  NumberParam,
-  ArrayParam,
-  withDefault,
-} from "use-query-params";
-import { filterProducts } from "../redux/actionProducts";
+
+import { filterProducts } from "../../redux/actionProducts";
 import { useDispatch } from "react-redux";
 
 const Accordion = styled((props) => (
@@ -44,22 +38,22 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 // create a custom parameter with a default value
-const MyFilterParam = withDefault(ArrayParam, []);
+
 const minDistance = 1;
 function valuetext(value) {
   return `${value}°C`;
 }
-const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
-  const [query, setQuery] = useQueryParams({
-    min_price: NumberParam,
-    max_price: NumberParam,
-    categories: MyFilterParam,
-    colors: MyFilterParam,
-    brands: MyFilterParam,
-  });
-  const [queryPage, setQueryPage] = useQueryParams({
-    page: NumberParam,
-  });
+const FilterSection = ({
+  productData,
+  category,
+  color,
+  brand,
+  maxPrice,
+  setQuery,
+  setQueryPage,
+  queryPage,
+  query,
+}) => {
   const dispatch = useDispatch();
   const [price, setPrice] = useState([0, 0]);
   const handleChange1 = (event, newValue, activeThumb) => {
@@ -129,29 +123,12 @@ const FilterSection = ({ productData, category, color, brand, maxPrice }) => {
     }
   }, [maxPrice]);
 
-  // send data to server
-  useEffect(() => {
-    // console.log(query);
-    setQueryPage({ page: undefined });
-    dispatch(filterProducts(query));
-    window.scrollTo({
-      top: 0,
-      behavior: "auto",
-    });
-    if (query.min_price == undefined) {
-      setPrice([0, Math.ceil(maxPrice)]);
-    }
-  }, [query]);
-  useEffect(() => {
-    dispatch(filterProducts({ ...query, ...queryPage }));
-    window.scrollTo({
-      top: 0,
-      behavior: "auto",
-    });
-    if (query.min_price == undefined) {
-      setPrice([0, Math.ceil(maxPrice)]);
-    }
-  }, [queryPage]);
+useEffect(() => {
+ if (query.min_price == undefined) {
+        setPrice([0, Math.ceil(maxPrice)]);
+      }
+}, [query.min_price])
+
 
   return (
     <Box>

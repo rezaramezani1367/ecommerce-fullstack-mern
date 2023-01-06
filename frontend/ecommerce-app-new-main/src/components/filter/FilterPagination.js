@@ -1,22 +1,12 @@
 import { Box, Pagination } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  useQueryParams,
-  StringParam,
-  NumberParam,
-  ArrayParam,
-  withDefault,
-} from "use-query-params";
-import { filterProducts } from "../redux/actionProducts";
 
-const FilterPagination = ({ paginationData: { totalPages, page } }) => {
-  const dispatch = useDispatch();
-  const [query, setQuery] = useQueryParams({
-    page: NumberParam,
-  });
+const FilterPagination = ({
+  paginationData: { totalPages, page },
+  setQueryPage
+}) => {
   const handleChange = (event, value) => {
-    setQuery({ page: value === 1 ? undefined : value });
+    setQueryPage({ page: value === 1 ? undefined : value });
   };
   return (
     <>

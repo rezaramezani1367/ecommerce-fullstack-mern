@@ -15,7 +15,7 @@ import Checkout from "./components/Checkout";
 import Order from "./components/Order";
 import Orders from "./components/Orders";
 import NotFound from "./components/NotFound";
-import FilterProduct from "./components/FilterProduct";
+import FilterProduct from "./components/filter/FilterProduct";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 
