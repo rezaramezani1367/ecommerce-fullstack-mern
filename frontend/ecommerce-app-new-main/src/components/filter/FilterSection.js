@@ -54,7 +54,8 @@ const FilterSection = ({
   queryPage,
   query,
 }) => {
-  const dispatch = useDispatch();
+  const [timer, setTimer] = useState(null);
+
   const [price, setPrice] = useState([0, 0]);
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -123,12 +124,11 @@ const FilterSection = ({
     }
   }, [maxPrice]);
 
-useEffect(() => {
- if (query.min_price == undefined) {
-        setPrice([0, Math.ceil(maxPrice)]);
-      }
-}, [query.min_price])
-
+  useEffect(() => {
+    if (query.min_price == undefined) {
+      setPrice([0, Math.ceil(maxPrice)]);
+    }
+  }, [query.min_price]);
 
   return (
     <Box>
@@ -215,16 +215,21 @@ useEffect(() => {
                 value={price[0]}
                 onChange={(e) => {
                   let value = Number(e.target.value);
-                  if (!isNaN(value)) {
-                    handleChange1(e, [value, price[1]], 0);
-                    setQuery({
-                      min_price:
-                        value <= price[1] - minDistance
-                          ? value
-                          : price[1] - minDistance,
-                      max_price: price[1],
-                    });
-                  }
+                  clearTimeout(timer);
+                  if (!isNaN(value)) handleChange1(e, [value, price[1]], 0);
+                  const newTimer = setTimeout(() => {
+                    if (!isNaN(value)) {
+                      setQuery({
+                        min_price:
+                          value <= price[1] - minDistance
+                            ? value
+                            : price[1] - minDistance,
+                        max_price: price[1],
+                      });
+                    }
+                  }, 1000);
+
+                  setTimer(newTimer);
                 }}
                 label="min"
               />
@@ -236,16 +241,21 @@ useEffect(() => {
                 value={price[1]}
                 onChange={(e) => {
                   let value = Number(e.target.value);
-                  if (!isNaN(value) && value <= maxPrice) {
+                  clearTimeout(timer);
+                  if (!isNaN(value) && value <= maxPrice)
                     handleChange1(e, [price[0], value], 1);
-                    setQuery({
-                      min_price: price[0],
-                      max_price:
-                        value >= price[0] + minDistance
-                          ? value
-                          : price[0] + minDistance,
-                    });
-                  }
+                  const newTimer = setTimeout(() => {
+                    if (!isNaN(value) && value <= maxPrice) {
+                      setQuery({
+                        min_price: price[0],
+                        max_price:
+                          value >= price[0] + minDistance
+                            ? value
+                            : price[0] + minDistance,
+                      });
+                    }
+                  }, 1000);
+                  setTimer(newTimer);
                 }}
                 label="max"
               />

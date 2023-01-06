@@ -105,7 +105,7 @@ exports.deleteProductById = asyncHandler(async (req, res, next) => {
   });
 });
 exports.filterProducts = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const option = {
     page: req.body.page,
     limit: 9,
