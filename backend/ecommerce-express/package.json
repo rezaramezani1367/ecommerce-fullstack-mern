@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "nodemon index.js",
     "tailwind": "tailwind build public/styles/index.css -o public/styles/tailwind.css --watch",
     "fontawesome": "mkdir -p public/vendor/@fortawesome/fontawesome-free/webfonts && mkdir -p public/vendor/@fortawesome/fontawesome-free/css && cp -a ./node_modules/@fortawesome/fontawesome-free/webfonts assets/vendor/@fortawesome/fontawesome-free/ && cp ./node_modules/@fortawesome/fontawesome-free/css/all.min.css assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
   },
