@@ -12,9 +12,9 @@ const userError = "userError";
 const orderLoading = "orderLoading";
 const orderSuccess = "orderSuccess";
 const orderError = "orderError";
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://ecommerce-test-6rfi.onrender.com/";
 const client = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: baseUrl,
 });
 
 

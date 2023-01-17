@@ -217,7 +217,7 @@ export default function Header({ setMode, mode }) {
                   noWrap
                   component="span"
                 >
-                  filter products
+                  filter
                 </Typography>
               </Box>
             </NavLink>
